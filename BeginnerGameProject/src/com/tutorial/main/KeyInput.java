@@ -46,6 +46,10 @@ public class KeyInput extends KeyAdapter{
 			}
 		}
 		
+		// hit ESC key to exit game
+		if(key == KeyEvent.VK_ESCAPE) {
+			System.exit(1);
+		}
 		
 	}
 	

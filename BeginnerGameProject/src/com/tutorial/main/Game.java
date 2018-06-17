@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -14,7 +15,11 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
+	private Random r;
+
+	
 	private Handler handler;
+	private HUD hud;
 	
 	public Game() {
 		
@@ -29,11 +34,18 @@ public class Game extends Canvas implements Runnable{
 		 */
 		this.addKeyListener(new KeyInput(handler));
 		
+		r = new Random();
+		
 		new Window(WIDTH, HEIGHT, "My Game!!", this);
 		
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
+		hud = new HUD();
 		
+		// Player 1
+		new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler);
 		
+		// BasicEnemy
+		new BasicEnemy(WIDTH/2-32, HEIGHT/2-32, ID.BasicEnemy, handler);
+
 	}
 
 	/*
@@ -62,6 +74,8 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void run() {
 		
+		// makes it so you don't have to click on the screen
+		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -84,7 +98,7 @@ public class Game extends Canvas implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -93,6 +107,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		handler.tick();
+		hud.tick();
 	}
 	
 	private void render() {
@@ -112,9 +127,24 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		handler.render(g);
+		hud.render(g);
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	/*
+	 * This method will prevent the player from going past
+	 * the HEIGHT and WIDTH of the game.
+	 */
+	public static int clamp(int value, int min, int max) {
+		if(value >= max) {
+			return value = max;
+		} else if(value <= min) {
+			return value = min;
+		} else {
+			return value;
+		}
 	}
 	
 	public static void main(String[] args) {

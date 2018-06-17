@@ -1,6 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /*
  * All the game objects.
@@ -23,18 +24,29 @@ public abstract class GameObject {
 	 * variables that control speed in x/y-direction 
 	 */
 	protected int velX, velY;
-	
+
+	/*
+	 * handlers for GameObjects
+	 */
+	protected Handler handler;
+
 	/*
 	 * GameObject constructor
 	 */
-	public GameObject(int x, int y, ID id) {
+	public GameObject(int x, int y, ID id, Handler handler) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.handler = handler;
+		
+		handler.addObject(this);
 	}
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	
+	// intersects method for collusions
+	public abstract Rectangle getBounds();
 
 	/*
 	 * Getters and Setters

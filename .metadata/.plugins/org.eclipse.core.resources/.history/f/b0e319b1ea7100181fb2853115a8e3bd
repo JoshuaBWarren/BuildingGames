@@ -1,0 +1,42 @@
+package com.tutorial.main;
+
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+/*
+ * Basic Enemy will have a trail
+ */
+public class Trail extends GameObject{
+	
+	private float alpha = 1;
+	private Handler handler;
+
+	public Trail(int x, int y, ID id, Handler handler) {
+		super(x, y, id, handler);
+		
+
+	}
+
+	public void tick() {
+
+		
+	}
+
+	public void render(Graphics g) {
+
+		
+	}
+	
+	// will render out Basic Enemy Trail
+	private AlphaComposite makeTransparent(float alpha) {
+		int type = AlphaComposite.SRC_OVER;
+		
+		return(AlphaComposite.getInstance(type, alpha));
+	}
+
+	public Rectangle getBounds() {
+		return null;
+	}
+
+}
