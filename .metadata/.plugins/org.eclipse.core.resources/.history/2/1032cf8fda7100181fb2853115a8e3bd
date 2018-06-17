@@ -1,0 +1,24 @@
+package com.tutorial.main;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+/*
+ * Keyboard input class
+ */
+public class KeyInput extends KeyAdapter{
+
+	public void keyPressed(KeyEvent e) {
+		/*
+		 * int key set to letter-binding
+		 */
+		int key = e.getKeyCode();
+		
+		
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		
+	}
+	
+}

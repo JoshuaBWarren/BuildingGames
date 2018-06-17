@@ -1,0 +1,12 @@
+package com.tutorial.main;
+
+import java.awt.event.KeyAdapter;
+
+/*
+ * Keyboard input class
+ */
+public class KeyInput extends KeyAdapter{
+
+	
+	
+}

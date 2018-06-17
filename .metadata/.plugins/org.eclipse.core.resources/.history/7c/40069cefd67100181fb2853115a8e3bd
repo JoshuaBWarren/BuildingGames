@@ -1,0 +1,10 @@
+package com.tutorial.main;
+
+/*
+ * Updates all of the objects within the Game
+ */
+public class Handler {
+	
+	
+
+}

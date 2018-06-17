@@ -1,0 +1,23 @@
+package com.tutorial.main;
+
+import java.util.LinkedList;
+
+/*
+ * Updates all of the objects within the Game
+ * 
+ * Loop through all objects in the game, update them, and render them in-game.
+ */
+public class Handler {
+	
+	LinkedList<GameObject> object = new LinkedList<GameObject>();
+	
+	public void tick() {
+		
+	}
+	
+	public void render(Graphics g) {
+		
+	}
+	
+
+}
