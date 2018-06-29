@@ -1,5 +1,0 @@
-package com.tutorial.main;
-
-public abstract class GameObject {
-
-}
