@@ -36,25 +36,45 @@ player.setheading(90)
 playerspeed = 15
 
 #Number of enemies in the game
-number_of_enemies = 5
+number_of_enemies = 18
 
 #Create list of enemies
 enemies = []
+
+#Create offset value
+xOffset = 0
+yOffset = 50
+
+#Create row value
+row = 0
 
 #Add enemies to the list
 for i in range(number_of_enemies):
     #Create the enemy
     enemies.append(turtle.Turtle())
 
-#For each of the enemy turtls
+#For each of the enemy turtles
 for enemy in enemies:
-    enemy.color("red")
-    enemy.shape("circle")
-    enemy.penup()
-    enemy.speed(0)
-    x = random.randint(-200, 200)
-    y = random.randint(100, 250)
-    enemy.setposition(x, y)
+    if row > 10:
+        xOffset += 50
+        x = -235 + xOffset - 550
+        y = 200
+        enemy.setposition(x, y)
+        row += 1
+    else:
+        xOffset += 50
+        enemy.color("red")
+        enemy.shape("circle")
+        enemy.penup()
+        enemy.speed(0)
+        x = -285 + xOffset
+        y = 250
+        enemy.setposition(x, y)
+        row += 1
+
+    
+        
+
 
 enemyspeed = 2
 
@@ -135,16 +155,10 @@ while True:
 
         #Move the enemy back and down
         if enemy.xcor() > 280:
-            y = enemy.ycor()
-            y -= 40
-            enemyspeed *= -1
-            enemy.sety(y)
-
-        if enemy.xcor() < -280:
-            y = enemy.ycor()
-            y -= 40
-            enemyspeed *= -1
-            enemy.sety(y)
+            x = enemy.xcor() * -1
+            y = enemy.ycor() - 40
+            #enemyspeed *= -1
+            enemy.setposition(x, y)
 
         #Check collision between a bullet and an enemy
         if isCollision(bullet, enemy):
@@ -153,11 +167,11 @@ while True:
             bulletstate = "ready"
             #take bullet way below screen so it doesn't hit other enemies
             bullet.setposition(0, -400)
-            #Reset the enemy
-            enemy.setposition(-200, 250)
-            x = random.randint(-200, 200)
-            y = random.randint(100, 250)
-            enemy.setposition(x,y)
+
+            #Hide the enemy
+            enemy.setposition(0, -500)
+            number_of_enemies = number_of_enemies - 1
+            enemy.hideturtle()
 
         if isCollision(player, enemy):
             player.hideturtle()
@@ -175,6 +189,12 @@ while True:
     if bullet.ycor() > 275:
         bullet.hideturtle()
         bulletstate = "ready"
+
+    #Check the number of enemies for win state
+    if number_of_enemies == 0:
+        player.hideturtle()
+        print ("You win!")
+        break
 
        
 
